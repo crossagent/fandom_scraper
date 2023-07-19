@@ -9,9 +9,9 @@ import pandas as pd
 from tqdm.autonotebook import tqdm
 
 # change these variables to change the fandom instance & character category/ies
-FANDOM_SITE = 'coronationstreet'
-CATEGORY = 'Coronation_Street_characters'
-CATEGORIES = [CATEGORY]
+FANDOM_SITE = 'rust'
+CATEGORY = 'Weapons'
+CATEGORIES_RULES = ['gameplay','guides','Environment','Mechanics','Maps']
 JSON_FILE = f"projects/{FANDOM_SITE}.json"
 FANDOM_URL = f'https://{FANDOM_SITE}.fandom.com'
 API_URL = FANDOM_URL + '/api.php'
@@ -495,13 +495,118 @@ class WikiInfobox(WikiAPI):
         return dfs_dict
 
 
-if __name__ == "__main__":
-    print(f'Getting {CATEGORIES} infoboxes from fandom site {FANDOM_SITE}\n')
-    # create WikiInfobox instance with default values
-    wi = WikiInfobox(categories=CATEGORIES, recursive=False)
-    wi.build()
+import re
 
-    # output primary infobox dataframe to json file
-    print(f'Writing infoboxes to {JSON_FILE}\n')
-    wi.write_infobox_json()
+def sanitize_filename(filename):
+    """
+    清理文件名，将空格替换为下划线，将斜杠替换为下划线，并修改其他常见的非法字符。
+
+    Args:
+    filename: 要清理的文件名。
+
+    Returns:
+    清理后的文件名。
+    """
+
+    # 将空格替换为下划线。
+    filename = re.sub(r' ', '_', filename)
+
+    # 将斜杠替换为下划线。
+    filename = re.sub(r'/', '_', filename)
+
+    # 修改其他常见的非法字符。
+    filename = re.sub(r'[!@#$%^&*(){}:;<>,.?]', '', filename)
+
+    # 返回清理后的文件名。
+    return filename
+
+def process_section(categroy_result, sections, depth=1):
+    markdown_sections = ""
+
+    for section in sections:
+        title = section.get('title', '')
+        content = section.get('content', '')
+
+        markdown_sections += f"\n{'#' * depth} {title}\n\n{categroy_result}\n\n{content}\n"
+
+        subsections = section.get('sections', [])
+        if subsections:
+            markdown_sections += process_section(categroy_result, subsections, depth + 1)
+        
+    return markdown_sections
+
+
+if __name__ == "__main__":
+    print(f'Getting {CATEGORIES_RULES} infoboxes from fandom site {FANDOM_SITE}\n')
+    # create WikiInfobox instance with default values
+
+    wi = WikiCategory(categories=CATEGORIES_RULES, recursive=False)
+    #wi = WikiInfobox(categories=CATEGORIES, recursive=False)
+    #wi.build()
+
+    wi.scrape()
+
+    import fandom
+    import json
+
+    pages = wi.pages
+
+    fandom.set_wiki(FANDOM_SITE)
+
+    for pageid,pagename in pages:
+        time.sleep(1)
+        page = fandom.page(pagename)
+        
+        #额外获取分类信息
+        query_params = {
+            'action': 'query',
+            'wiki': FANDOM_SITE,
+            'lang': page.language,
+            'redirects': True,
+            'titles': page.title,
+            'prop': 'categories'
+        }
+
+        from fandom.util import _wiki_request
+
+        request = _wiki_request(query_params)
+        categories=request['query']['pages'][str(page.pageid)]['categories']       
+
+        categroy_text = []
+        for categroy in categories:
+            title = categroy['title'].replace('Category:', '')
+            categroy_text.append(f"Category: {title}")
+
+        categroy_result = ",".join(categroy_text)        
+
+        import json
+
+        newfilename = sanitize_filename(pagename)
+
+        print("try logging in file:" + newfilename)
+        with open(f"data/{newfilename}.md", "w", encoding='utf-8') as f:
+            try:
+                # 合并 `categories` 中的数据到 `page.content`
+
+                markdown = ''
+                if ('sections' in page.content):
+                    sections = page.content['sections']
+                    markdown = process_section(categroy_result=categroy_result, sections=sections)
+                else:
+                    markdown = f"\n{'#'} {page.title}\n\n{categroy_result}\n\n{page.content}\n"
+                
+
+                #page.sections = categories + page.sections
+                #page.content['categories'] = categories
+
+                #from tabulate import tabulate
+                #table = []
+                #for key, value in page.content.items():
+                #    table.append([key, value])
+
+                #markdown_table = tabulate(table, tablefmt="pipe", headers=["Key", "Value"])
+
+                f.write(markdown)
+            except Exception as e:
+                print(f"file {newfilename} data is not json, error: {e}")
 
