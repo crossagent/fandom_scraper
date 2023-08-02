@@ -1,0 +1,4 @@
+
+# PvP
+
+{'title': 'PvP', 'content': 'PvP, also known as "Player vs Player", is a play style associated with many games, including Rust. In a PvP game, players have the opportunity to fight and kill other players. PvP broadly refers to any given combat situation between two or more players. In Rust, PvP is optional, as there is no requirement for the player to kill other players in order to progress through the game.\nMechanics\nAttack\nDamage Types • Projectiles\nEnvironment\nAnimals • Barrels • Biomes • Flora • Loot Crates • Monuments • Rocks • Trees\nGameplay\nAttack Helicopter • Airdrops • Building • Combat • Crafting • Gathering • Raiding • Repairing • Researching\nPlayer\nFood & Hunger • Health • Hydration & Thirst • Protection • Sleeping • Spawning\nXP System\nExperience • Skill Tree • Tech Tree\nStatus Effects\nBleeding • Building Privilege • Comfort • Injured • Poisoning • Radiation • Starvation & Dehydration • Warmth • Wet & Drowning • Wounded'}

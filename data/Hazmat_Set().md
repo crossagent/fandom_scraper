@@ -1,0 +1,4 @@
+
+# Hazmat Set
+
+{'title': 'Hazmat Set', 'content': 'The Hazmat Set protects the wearer from radiated zones quite well\n. It provides a good level of radiation protection and minimal cold protection. \nAlthough it protects you from radiation, Hazmat gear also increases the amount of damage you take from bullets by roughly 20-30% and amplifies any other type of physical damage by roughly the same amount. It appears that the suit has been damaged at one point and someone tried to patch it up using black tape all over the place, which is visible best on both the chest and legs. The Hazmat Jacket is high-visibility, and is not recommended to be worn during PvP battles.\nThe Hazmat suit is now moderately rare, as it can only be obtained from loot crates, as one singular peice, as opposed to the previous system, where each piece was crafted individually.'}

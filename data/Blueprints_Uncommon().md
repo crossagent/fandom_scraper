@@ -1,0 +1,4 @@
+
+# Blueprints/Uncommon
+
+{'title': 'Blueprints/Uncommon', 'content': 'The following are Uncommon Blueprints.\n12 Gauge Buckshot\n5.56 Rifle Ammo\nAcoustic Guitar\nBarbed Wooden Barricade\nBeancan Grenade\nBed\nBone Armor Pants\nBone Jacket\nBoonie Hat\nBucket Helmet\nCeiling Light\nCrossbow\nDouble Sign Post\nExplosives\nHatchet\nHazmat Boots\nHazmat Gloves\nHazmat Jacket\nHazmat Pants\nHigh External Wooden Gate\nHigh External Wooden Wall\nHigh Velocity Arrow\nImprovised Balaclava\nJacket\nLandscape Picture Frame\nLantern\nLarge Medkit\nLarge Water Catcher\nLarge Wooden Sign\nMetal Barricade\nMiners Hat\nMining Quarry\nOne Sided Town Sign Post\nPortrait Picture Frame\nReinforced Window Bars\nRevolver\nRiot Helmet\nSalvaged Axe\nSalvaged Hammer\nSandbag Barricade\nSmall Oil Refinery\nSnap Trap\nSurvey Charge\nTall Picture Frame\nTwo Sided Hanging Sign\nWater Barrel\nWooden Sign'}

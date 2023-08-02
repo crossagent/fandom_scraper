@@ -1,0 +1,4 @@
+
+# Wipe
+
+{'title': 'Wipe', 'content': 'The best way to start explaining on a simple way the meaning of Wipe is that it means "to clean".\nA Wipe inside a Rust server would be cleaning the data inside it.\nInside Rust, there are 3 types of Wipe:\nThe Map Wipe. This term is used when the server just has to clean all the structures, houses and furniture on the map. It\'s used to re-start playing the game but with the blueprints knowledge untouched.\nBlueprint Wipe: This Wipe is used when the administrator of the server wants to clean the progress made on blueprints that have been unlocked by players and erase them.\nAnd finally, there is the Server Wipe (Complete wipe) which is the most common, where everything gets erased and players have to start from the beginning all over again.\n↑ ¿Qué es wipe en Rust?'}

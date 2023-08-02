@@ -1,0 +1,4 @@
+
+# Blueprints/Rare
+
+{'title': 'Blueprints/Rare', 'content': 'The following are Rare Blueprints. These blueprints are revealed by using a blueprint page (Upgraded from 60 blueprint fragments).\n12 Gauge Slug\nCoffee Can Helmet\nConcrete Barricade\nExplosive 5.56 Rifle Ammo\nF1 Grenade\nFlame Thrower\nHazmat Helmet\nHigh Velocity Rocket\nHuge Wooden Sign\nHV 5.56 Rifle Ammo\nHV Pistol Ammo\nIncendiary 5.56 Rifle Ammo\nIncendiary Pistol Bullet\nIncendiary Rocket\nLand Mine\nLarge Banner Hanging\nLarge Banner on pole\nLongsword\nMace\nPick Axe\nPump Shotgun\nRoad Sign Jacket\nRoad Sign Kilt\nRocket\nSalvaged Cleaver\nSalvaged Icepick\nSemi-Automatic Pistol\nSemi-Automatic Rifle\nSnow Jacket - Red\nThompson\nTwo Sided Ornate Hanging Sign\nTwo Sided Town Sign Post\nXL Picture Frame\nXXL Picture Frame'}

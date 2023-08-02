@@ -1,0 +1,4 @@
+
+# Destruction
+
+{'title': 'Destruction', 'content': 'The following table compares commonly used explosive devices, in terms of the minimum amount required to destroy a given object:\n1\n2\n4\n8\n1\n1\n2\n2\n1\n2\n2\n2\n4\n8\n15\n1\n2\n3\n4\n2\n3\n4\n5\n16\n33\n65\n2\n5\n12\n16\n5\n9\n15\n3\n10\n23\n46\n2\n4\n9\n12\n4\n6\n10\n13\n46\n112\n223\n6\n18\n42\n56\n18\n26\n46\n125\n250\n1000\n2000\n40\n50\n120\n160\n50\n250\n250\n72\n289\n358\n478\n19\n88\n251\n334\n35\n175\n433\n250 hp\n500 hp\n1000 hp\n2000 hp\n200 hp\n250 hp\n600 hp\n800 hp\n250 hp\n500 hp\n500 hp\n495\n275\n275\n275\n1100\n440\n440\n440\n440\n495\n275\n247.6\n137.6\n137.6\n137.6\n550.4\n220.4\n220.4\n220.4\n220.4\n247.6\n137.6\n?\n31\n31\n31\n?\n51\n52\n52\n51\n?\n?\n91.5\n51.5\n43.5\n43.5\n170\n70\n70\n70\n70\n91.5\n51.5\n2\n2\n1\n1\n5\n5\n5\n34.5\n34.5\n42\n23.5\n19.5\n11\n9\n9\n35\n14.5\n14.5\n14.5\n14.5\n19.5\n11'}

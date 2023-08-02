@@ -17,42 +17,7 @@ FANDOM_URL = f'https://{FANDOM_SITE}.fandom.com'
 API_URL = FANDOM_URL + '/api.php'
 
 NAMESPACES = [
-    ('-2', 'Media'),
-    ('-1', 'Special'),
     ('0', 'Article'),
-    ('1', 'Talk'),
-    ('2', 'User'),
-    ('3', 'User talk'),
-    ('4', 'Project'),
-    ('5', 'Project talk'),
-    ('6', 'File'),
-    ('7', 'File talk'),
-    ('8', 'MediaWiki'),
-    ('9', 'MediaWiki talk'),
-    ('10', 'Template'),
-    ('11', 'Template talk'),
-    ('12', 'Help'),
-    ('13', 'Help talk'),
-    ('14', 'Category'),
-    ('15', 'Category talk'),
-    ('110', 'Forum'),
-    ('111', 'Forum talk'),
-    ('420', 'GeoJson'),
-    ('421', 'GeoJson talk'),
-    ('500', 'User blog'),
-    ('501', 'User blog comment'),
-    ('502', 'Blog'),
-    ('503', 'Blog talk'),
-    ('710', 'TimedText'),
-    ('711', 'TimedText talk'),
-    ('828', 'Module'),
-    ('829', 'Module talk'),
-    ('1200', 'Message Wall'),
-    ('1201', 'Thread'),
-    ('1202', 'Message Wall Greeting'),
-    ('2000', 'Board'),
-    ('2001', 'Board Thread'),
-    ('2002', 'Topic'),
     ]
 
 
@@ -523,6 +488,7 @@ def sanitize_filename(filename):
 
     # 将斜杠替换为下划线。
     filename = re.sub(r'/', '_', filename)
+    filename = re.sub(r'\\', '_', filename)
 
     # 修改其他常见的非法字符。
     filename = re.sub(r'[!@#$%^&*(){}:;<>,.?]', '', filename)
@@ -708,27 +674,30 @@ class FandomPageParser(FandomPage):
 
 if __name__ == "__main__":
 
-    page = FandomPageParser(FANDOM_SITE, 'en', title='Ammunition', redirect=True, preload=False)
-    print(page.html)
-    sections = page.content['sections']
+    #page = FandomPageParser(FANDOM_SITE, 'en', title='Ammunition', redirect=True, preload=False)
+    #print(page.html)
+    #ections = page.content['sections']
 
-    print(f'Getting {CATEGORIES_RULES} infoboxes from fandom site {FANDOM_SITE}\n')
+    #print(f'Getting {CATEGORIES_RULES} infoboxes from fandom site {FANDOM_SITE}\n')
     # create WikiInfobox instance with default values
 
-    wi = WikiCategory(categories=CATEGORIES_RULES, recursive=False)
+    #wi = WikiCategory(categories=CATEGORIES_RULES, recursive=False)
     #wi = WikiInfobox(categories=CATEGORIES, recursive=False)
     #wi.build()
 
-    wi.scrape()
+    #wi.scrape()
+    #pages = wi.pages
 
     import fandom
     import json
 
-    pages = wi.pages
+    wiki = WikiAPI()
+
+    page_infos = wiki.get_all_pages()
 
     fandom.set_wiki(FANDOM_SITE)
 
-    for pageid,pagename in pages:
+    for pageid,pagename in page_infos:
         time.sleep(1)
         #page = fandom.page(pagename)
         page = FandomPageParser(FANDOM_SITE, 'en', title=pagename, redirect=True, preload=False)
@@ -746,7 +715,12 @@ if __name__ == "__main__":
         from fandom.util import _wiki_request
 
         request = _wiki_request(query_params)
-        categories=request['query']['pages'][str(page.pageid)]['categories']       
+        if 'categories' in request['query']['pages'][str(page.pageid)]:
+            # 包含'categories'键
+            categories = request['query']['pages'][str(page.pageid)]['categories']
+        else:
+            # 不包含'categories'键
+            categories = []  # 或其他处理方式
 
         categroy_text = []
         for categroy in categories:
@@ -754,6 +728,7 @@ if __name__ == "__main__":
             categroy_text.append(f"{title}")
 
         categroy_result = ",".join(categroy_text)        
+        categroy_result = sanitize_filename(categroy_result)
 
         import json
 
