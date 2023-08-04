@@ -1,4 +1,0 @@
-
-# Night Vision Goggles
-
-{'title': 'Night Vision Goggles', 'content': 'Night Vision Goggles can be turned on and off by pressing Q and can be recharged at a tier 2 workbench or higher.\nResearched for 250 scrap\nMust be crafted at a tier 2 workbench or higher \nfor 10 High Quality Metal and tech trash\nCan be bought from one of the vending machines for 200 scrap\nNight Vision Goggles replace the headwear of the user; wearing a helmet at the same time is not possible.', 'infobox': 'Night Vision Goggles\nEnables vision at nighttime by projecting and amplifying infrared light. The batteries can be recharged at a Lvl 2 workbench. Cannot be worn with a helmet.\nGeneral\nShortname\nnightvisiongoggles\nType\nAttire\nStacksize\n1\nEquipment Slot\nHead Face\nProtection\n +4%\n +3%\nCrafting\nCraftable\nYes\nTime To Craft\n30 s\nIngredients\nx10x2'}

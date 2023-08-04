@@ -1,4 +1,0 @@
-
-# Zombie (Legacy)
-
-{'title': 'Zombie (Legacy)', 'content': 'Zombies were removed from Rust Legacy in February of 2014, replaced by Red Bears and Red wolves. The reason for this decision is a matter of debate.\nFrom all that has been gathered, both red animals produced the same loot as zombies when killed. The bears gave better loot than the wolves.\nBears take four hits from a bolt action rifle and Wolves take two.\nThe red animals were apparently placeholders for something else to be announced by the developers at a later date; however, nothing new was released before the closure of Legacy in 2015.\nThe developers decided to remove zombies because they did not wish that the game be considered a "Zombie Survival Game," or a DayZ clone. The removal of Zombies from Legacy was a matter of controversy among the community.'}
