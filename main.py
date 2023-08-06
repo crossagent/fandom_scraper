@@ -586,6 +586,10 @@ class FandomPageParser(FandomPage):
       for box in nav_boxes:
         box.decompose()
 
+      navigate_boxes = page_content.find_all('table', class_=re.compile(r'\bmw-collapsible\b|\bmw-collapsed\b'))
+      for box in navigate_boxes:
+        box.decompose()        
+
       content = {'title': self.title}
       level_tree = [content]
       current_level = 1
@@ -661,6 +665,7 @@ class FandomPageParser(FandomPage):
                     final_text += "\n"
                 
                 section_text += final_text 
+                pass
             else:
                 section_text += "\n"+next_node.get_text()
         next_node = next_node.nextSibling
@@ -671,12 +676,35 @@ class FandomPageParser(FandomPage):
       self._content = clean(content)
     return self._content
 
+def page2markdown(page):
+    markdown = ''
+
+    if ('content' in page.content):
+        markdown = f"{'#'} {page.content['title']}\n\n{page.content['content']}\n"
+
+    if ('infobox' in page.content):
+        markdown += f"{'#'} {page.content['title']} info\n\n{page.content['infobox']}\n"
+
+    if ('sections' in page.content):
+        sections = page.content['sections']
+        markdown = process_section(sections=sections)
+        
+    return markdown
 
 if __name__ == "__main__":
+    import fandom
+    import json
+    fandom.set_wiki(FANDOM_SITE)
 
-    #page = FandomPageParser(FANDOM_SITE, 'en', title='Ammunition', redirect=True, preload=False)
-    #print(page.html)
-    #ections = page.content['sections']
+    testpage2 = "Cooked_Chicken"
+    testpage3 = "Food&Hunger"
+
+    tmppage = fandom.page(title=testpage3)
+
+    page = FandomPageParser(FANDOM_SITE, 'en', pageid = tmppage.pageid, preload=True)
+    print(page.content)
+    md = page2markdown(page)
+    ections = page.content['sections']
 
     #print(f'Getting {CATEGORIES_RULES} infoboxes from fandom site {FANDOM_SITE}\n')
     # create WikiInfobox instance with default values
@@ -688,19 +716,14 @@ if __name__ == "__main__":
     #wi.scrape()
     #pages = wi.pages
 
-    import fandom
-    import json
-
     wiki = WikiAPI()
 
     page_infos = wiki.get_all_pages()
 
-    fandom.set_wiki(FANDOM_SITE)
-
     for pageid,pagename in page_infos:
         time.sleep(1)
         #page = fandom.page(pagename)
-        page = FandomPageParser(FANDOM_SITE, 'en', title=pagename, redirect=True, preload=False)
+        page = FandomPageParser(FANDOM_SITE, 'en', pageid=pageid, preload=False)
         
         #额外获取分类信息
         query_params = {
@@ -722,42 +745,31 @@ if __name__ == "__main__":
             # 不包含'categories'键
             categories = []  # 或其他处理方式
 
-        categroy_text = []
-        for categroy in categories:
-            title = categroy['title'].replace('Category:', '')
-            categroy_text.append(f"{title}")
+        # categroy_text = []
+        # for categroy in categories:
+        #     title = categroy['title'].replace('Category:', '')
+        #     categroy_text.append(f"{title}")
 
-        categroy_result = ",".join(categroy_text)        
-        categroy_result = sanitize_filename(categroy_result)
+        # categroy_result = ",".join(categroy_text)        
+        # categroy_result = sanitize_filename(categroy_result)
 
-        import json
+        # import json
 
         newfilename = sanitize_filename(pagename)
 
         print("try logging in file:" + newfilename)
-        with open(f"data/{newfilename}({categroy_result}).md", "w", encoding='utf-8') as f:
+        with open(f"data/{newfilename}.md", "w", encoding='utf-8') as f:
             try:
-                # 合并 `categories` 中的数据到 `page.content`
-
-                markdown = ''
-                if ('sections' in page.content):
-                    sections = page.content['sections']
-                    markdown = process_section(sections=sections)
-                else:
-                    markdown = f"\n{'#'} {page.title}\n\n{page.content}\n"
-                
-
-                #page.sections = categories + page.sections
-                #page.content['categories'] = categories
-
-                #from tabulate import tabulate
-                #table = []
-                #for key, value in page.content.items():
-                #    table.append([key, value])
-
-                #markdown_table = tabulate(table, tablefmt="pipe", headers=["Key", "Value"])
-
+                markdown = page2markdown(page)
                 f.write(markdown)
+            except Exception as e:
+                print(f"file {newfilename} data is not json, error: {e}")
+
+        print("try logging file info:" + newfilename)
+        with open(f"data/{newfilename}.info", "w", encoding='utf-8') as f:
+            try:
+                # 录入category信息`
+                json.dump(categories, f, indent=4)
             except Exception as e:
                 print(f"file {newfilename} data is not json, error: {e}")
 
